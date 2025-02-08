@@ -12,7 +12,7 @@ BuildRequires:	python3-build
 BuildRequires:	python3-installer
 BuildRequires:	python3-modules >= 1:3.2
 BuildRequires:	rpm-pythonprov
-BuildRequires:	rpmbuild(macros) >= 1.714
+BuildRequires:	rpmbuild(macros) >= 2.044
 Requires:	python3-modules >= 1:3.2
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -26,12 +26,12 @@ Utilities for handling packages.
 sed -i -e 's#<=67.1.0,##g' pyproject.toml
 
 %build
-%{__python3} -m build --wheel --no-isolation --outdir build-3
+%py3_build_pyproject
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__python3} -m installer --destdir=$RPM_BUILD_ROOT build-3/*.whl
+%py3_install_pyproject
 
 %clean
 rm -rf $RPM_BUILD_ROOT
